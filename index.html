@@ -11,13 +11,39 @@
     crossorigin
     src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
   ></script>
-  <script>
+  <!-- Load Babel -->
+  <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Your custom script here -->
+  <script type="text/babel">
     const root = document.getElementById('root');
-    const span = React.createElement(
-      'span',
-      { id: 'sexy-span' },
-      'hello, I am a span'
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log('mouse entered')}>
+        Hello, I am a title
+      </h3>
     );
-    ReactDOM.render(span, root);
+    const Button = () => (
+      <button onClick={() => console.log('i am clicked')}>Click me</button>
+    );
+    /*     const h3 = React.createElement(
+      'h3',
+      {
+        onMouseEnter: () => console.log('mouse entered'),
+      },
+      'hello, I am a h3'
+    );
+    const btn = React.createElement(
+      'button',
+      {
+        onClick: () => console.log('i am clicked'),
+      },
+      'Click me'
+    ); */
+    const Container = () => (
+      <div>
+        <Title /> <Button />
+      </div>
+    );
+    ReactDOM.render(<Container />, root);
   </script>
 </html>

@@ -18,14 +18,47 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     function Container() {
-      const [counter, setCounter] = React.useState(0);
-      const onClick = () => {
-        setCounter(counter + 1);
+      const [amount, setAmount] = React.useState();
+      const [inverted, setInvert] = React.useState(false);
+      const onChange = event => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount("");
+      const onInvert = () => {
+        reset();
+        setInvert(current => !current);
+        console.log(inverted);
       };
       return (
         <div>
-          <h3>Total Click : {counter}</h3>
-          <button onClick={onClick}>Click me</button>
+          <h1>Super Converter</h1>
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled={!inverted}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }

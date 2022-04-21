@@ -17,7 +17,7 @@
   <!-- Your custom script here -->
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Container() {
+    function MinutesToHours() {
       const [amount, setAmount] = React.useState();
       const [inverted, setInvert] = React.useState(false);
       const onChange = event => {
@@ -31,7 +31,7 @@
       };
       return (
         <div>
-          <h1>Super Converter</h1>
+          <h1>Converter</h1>
           <div>
             <label htmlFor="minutes">Minutes</label>
             <input
@@ -62,6 +62,72 @@
         </div>
       );
     }
-    ReactDOM.render(<Container />, root);
+
+    function KmToMiles() {
+      const [amount, setAmount] = React.useState();
+      const [inverted, setInvert] = React.useState(true);
+      const onChange = set => {
+        setAmount(set.target.value);
+      };
+      const reset = () => {
+        setAmount("");
+      };
+      const onInvert = set => {
+        setInvert(current => !current);
+      };
+
+      return (
+        <div>
+          <h1>KmtoMile</h1>
+          <div>
+            <label htmlFor="kilo">KiloMeter</label>
+            <input
+              type="number"
+              value={inverted ? amount : amount / 1.6}
+              onChange={onChange}
+              id="kilo"
+              placeholder="kilo"
+              disabled={!inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="mile">Mile</label>
+            <input
+              type="number"
+              value={inverted ? 1.6 * amount : amount}
+              onChange={onChange}
+              id="mile"
+              placeholder="mile"
+              disabled={inverted}
+            />
+          </div>
+          <button onClick={onInvert}>invert</button>
+          <button onClick={reset}>reset</button>
+        </div>
+      );
+    }
+    function App() {
+      const [index, setIndex] = React.useState("0");
+      const onChange = event => {
+        setIndex(event.target.value);
+      };
+      const onClick = () => {
+        setIndex();
+      };
+
+      return (
+        <div>
+          <br />
+          <button onClick={onClick}>change</button>
+          <select value={index} onChange={onChange} name="" id="">
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Kilo & Miles</option>
+          </select>
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
   </script>
 </html>

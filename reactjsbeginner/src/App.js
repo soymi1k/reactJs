@@ -3,51 +3,14 @@ import "./App.css";
 import styles from "./App.module.css";
 import Button from "./Button";
 import { useState, useEffect } from "react";
-
-function Hello() {
-  useEffect(() => {
-    console.log("created :)");
-    return () => console.log("destroyed :(");
-  }, []);
-  return <h2>Hello!</h2>;
-}
+import TodoList from "./TodoList";
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setValue(prev => prev + 1);
-  const onClickshow = () => setShowing(prev => !prev);
-  const onChange = event => setKeyword(event.target.value);
-  useEffect(() => {
-    console.log("I run only once");
-  }, []);
-  useEffect(() => {
-    if (keyword !== "" && keyword.length > 5) {
-      console.log("SEARCH For", keyword);
-    }
-  }, [keyword]);
-  useEffect(() => {
-    console.log("I run when counter Change");
-  }, [counter]);
-  useEffect(() => {
-    console.log("I run when keyword & counter change");
-  }, [keyword, counter]);
   return (
     <div className="App">
       <header className="App-header">
-        {showing ? <Hello /> : null}
-        <button onClick={onClickshow}>{showing ? "Hide" : "Show"}</button>
-        <input
-          value={keyword}
-          onChange={onChange}
-          type="text"
-          placeholder="Search here..."
-        />
-        <h1 className={styles.title}>Welcome back!</h1>
-        <h2>{counter}</h2>
-        <button onClick={onClick}>click me</button>
-        <Button text={"Hey"} />
+        <Button text={"hi"} />
+        <TodoList />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

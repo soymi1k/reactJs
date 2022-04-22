@@ -10,8 +10,8 @@ function TodoList() {
     if (todo === "") {
       return;
     }
-    setTodo("");
     setTodos(currentArray => [todo, ...currentArray]);
+    setTodo("");
   };
   console.log(todos);
   return (
@@ -26,6 +26,12 @@ function TodoList() {
         />
         <button>Add Todo</button>
       </form>
+      <hr />
+      <ul>
+        {todos.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }

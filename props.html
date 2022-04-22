@@ -11,12 +11,13 @@
     crossorigin
     src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
   ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.0/prop-types.js"></script>
   <!-- Load Babel -->
   <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <!-- Your custom script here -->
   <script type="text/babel">
-    function Btn({ text, onClick }) {
+    function Btn({ text, onClick, fontSize = 14 }) {
       console.log(text, "was rendered");
       return (
         <button
@@ -27,6 +28,8 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            /* fontSize: fontSize, */
+            fontSize,
           }}
         >
           {text}
@@ -34,13 +37,19 @@
       );
     }
     const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string,
+      fontSize: PropTypes.number.isRequired,
+    };
     function App() {
       const [value, setValue] = React.useState("Save Changes");
       const onClick = () => setValue("Revert Changes");
 
       return (
         <div>
-          <MemorizedBtn text={value} onClick={onClick} />
+          <MemorizedBtn text={value} onClick={onClick} fontSize={"19"} />
+          {/* can see error */}
+          <MemorizedBtn text={value} onClick={onClick} fontSize={8} />
           <MemorizedBtn text="Continue" />
         </div>
       );

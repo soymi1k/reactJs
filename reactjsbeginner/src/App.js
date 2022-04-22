@@ -4,10 +4,20 @@ import styles from "./App.module.css";
 import Button from "./Button";
 import { useState, useEffect } from "react";
 
+function Hello() {
+  useEffect(() => {
+    console.log("created :)");
+    return () => console.log("destroyed :(");
+  }, []);
+  return <h2>Hello!</h2>;
+}
+
 function App() {
   const [counter, setValue] = useState(0);
   const [keyword, setKeyword] = useState("");
+  const [showing, setShowing] = useState(false);
   const onClick = () => setValue(prev => prev + 1);
+  const onClickshow = () => setShowing(prev => !prev);
   const onChange = event => setKeyword(event.target.value);
   useEffect(() => {
     console.log("I run only once");
@@ -26,6 +36,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {showing ? <Hello /> : null}
+        <button onClick={onClickshow}>{showing ? "Hide" : "Show"}</button>
         <input
           value={keyword}
           onChange={onChange}
